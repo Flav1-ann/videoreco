@@ -1,6 +1,7 @@
 package fr.ensup.video.model;
 
 import org.hibernate.annotations.GenericGenerator;
+import org.hibernate.annotations.ManyToAny;
 
 import javax.persistence.*;
 import java.util.ArrayList;
@@ -23,6 +24,9 @@ public class Video {
     @OneToMany
     Set<VideoLabel> videoLabels = new HashSet<VideoLabel>();
 
+    @ManyToOne(cascade = CascadeType.ALL)
+    private User user;
+
     public Video(String title, String type) {
         this.title = title;
         this.type = type;
@@ -43,9 +47,14 @@ public class Video {
         this.type = type;
     }
 
-    public Video() {
+    public Video(String title, String type, User user) {
+        this.title = title;
+        this.type = type;
+        this.user = user;
     }
 
+    public Video() {
+    }
 
     public Set<VideoLabel> getVideoLabels() {
         return videoLabels;
@@ -77,5 +86,13 @@ public class Video {
 
     public void setType(String type) {
         this.type = type;
+    }
+
+    public User getUser() {
+        return user;
+    }
+
+    public void setUser(User user) {
+        this.user = user;
     }
 }

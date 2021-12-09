@@ -1,5 +1,6 @@
 package fr.ensup.video;
 
+import fr.ensup.video.mapper.VideoMapper;
 import fr.ensup.video.model.Video;
 import fr.ensup.video.model.VideoLabel;
 import fr.ensup.video.repository.VideoJdbcTemplate;
@@ -50,10 +51,19 @@ public class VideoLauncher {
         videoLabels.add(videoLabel2);
         video.setVideoLabels(videoLabels);
         //4- on persiste l'objets relationnel
-        em.persist(videoLabel);
-        em.persist(videoLabel1);
-        em.persist(videoLabel2);
-        em.persist(video);
+
+//        em.persist(videoLabel);
+//        em.persist(videoLabel1);
+//        em.persist(videoLabel2);
+//        em.persist(video);
+
+        var videoFound = em.find(Video.class,1l);
+//requete native
+        String query = "Select * from video  WHERE title = 'naruto'";
+        var videofound1 = em.createNativeQuery(query,Video.class);
+        System.out.println(videofound1.getResultList());
+
+
         //5- on commit
         tr.commit();
         //6- on ferme
