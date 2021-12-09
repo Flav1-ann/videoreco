@@ -1,6 +1,7 @@
 package fr.ensup.video;
 
 import fr.ensup.video.model.Video;
+import fr.ensup.video.model.VideoLabel;
 import fr.ensup.video.repository.VideoJdbcTemplate;
 import org.springframework.context.ApplicationContext;
 import org.springframework.context.support.ClassPathXmlApplicationContext;
@@ -9,6 +10,9 @@ import javax.persistence.EntityManager;
 import javax.persistence.EntityManagerFactory;
 import javax.persistence.EntityTransaction;
 import javax.persistence.Persistence;
+import java.util.HashSet;
+import java.util.List;
+import java.util.Set;
 
 public class VideoLauncher {
     public static void main(String[] args) {
@@ -32,9 +36,23 @@ public class VideoLauncher {
         //2- Ouverture d'une transaction
         EntityTransaction tr = em.getTransaction();
         tr.begin();
-        //3- on instancie d'une vidéo
+        //3- on instancie d'une vidéo avec des labels
         Video video =  new Video("naruto","anim");
+        VideoLabel videoLabel = new VideoLabel("Action");
+        VideoLabel videoLabel1 = new VideoLabel("Palpitant");
+        VideoLabel videoLabel2 = new VideoLabel("Horreur");
+//        video.getVideoLabels().add(videoLabel);
+//        video.getVideoLabels().add(videoLabel1);
+//        video.getVideoLabels().add(videoLabel2);
+        Set<VideoLabel> videoLabels = new HashSet<VideoLabel>();
+        videoLabels.add(videoLabel);
+        videoLabels.add(videoLabel1);
+        videoLabels.add(videoLabel2);
+        video.setVideoLabels(videoLabels);
         //4- on persiste l'objets relationnel
+        em.persist(videoLabel);
+        em.persist(videoLabel1);
+        em.persist(videoLabel2);
         em.persist(video);
         //5- on commit
         tr.commit();

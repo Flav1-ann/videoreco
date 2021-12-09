@@ -3,6 +3,10 @@ package fr.ensup.video.model;
 import org.hibernate.annotations.GenericGenerator;
 
 import javax.persistence.*;
+import java.util.ArrayList;
+import java.util.HashSet;
+import java.util.List;
+import java.util.Set;
 
 @Entity
 @Table(name = "video")
@@ -15,6 +19,9 @@ public class Video {
     private String title;
 
     private  String type;
+
+    @OneToMany
+    Set<VideoLabel> videoLabels = new HashSet<VideoLabel>();
 
     public Video(String title, String type) {
         this.title = title;
@@ -37,6 +44,15 @@ public class Video {
     }
 
     public Video() {
+    }
+
+
+    public Set<VideoLabel> getVideoLabels() {
+        return videoLabels;
+    }
+
+    public void setVideoLabels(Set<VideoLabel> videoLabels) {
+        this.videoLabels = videoLabels;
     }
 
     public long getId() {

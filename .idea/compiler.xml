@@ -10,7 +10,7 @@
       </profile>
     </annotationProcessing>
     <bytecodeTargetLevel>
-      <module name="videoReco" target="6" />
+      <module name="videoReco" target="7" />
     </bytecodeTargetLevel>
   </component>
 </project>
