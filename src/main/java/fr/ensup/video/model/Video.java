@@ -7,7 +7,6 @@ import javax.persistence.*;
 import java.util.*;
 
 @Entity
-@Table(name = "video")
 @Inheritance(strategy = InheritanceType.SINGLE_TABLE)
 @DiscriminatorValue("video")
 @DiscriminatorColumn(name = "video_type",discriminatorType = DiscriminatorType.STRING
