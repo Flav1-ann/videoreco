@@ -3,6 +3,9 @@ package fr.ensup.video.model;
 import org.hibernate.annotations.GenericGenerator;
 
 import javax.persistence.*;
+import java.lang.invoke.CallSite;
+import java.util.HashSet;
+import java.util.Set;
 
 @Entity
 @Table(name = "Ensup_user")
@@ -17,6 +20,8 @@ public class User {
     private String lastName;
     private String occupation;
 
+    @OneToMany(mappedBy = "user", fetch = FetchType.LAZY)
+    private Set<Video> videos = new HashSet<>();
 
 
     public User() {
@@ -58,5 +63,23 @@ public class User {
 
     public void setOccupation(String occupation) {
         this.occupation = occupation;
+    }
+
+    public Set<Video> getVideos() {
+        return videos;
+    }
+
+    public void setVideos(Set<Video> videos) {
+        this.videos = videos;
+    }
+
+    @Override
+    public String toString() {
+        return "User{" +
+                "id=" + id +
+                ", firstName='" + firstName + '\'' +
+                ", lastName='" + lastName + '\'' +
+                ", occupation='" + occupation + '\'' +
+                '}';
     }
 }

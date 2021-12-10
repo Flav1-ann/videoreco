@@ -51,4 +51,12 @@ public class VideoLabel {
     public int hashCode() {
         return Objects.hash(id, label);
     }
+
+    @Override
+    public String toString() {
+        return "VideoLabel{" +
+                "id=" + id +
+                ", label='" + label + '\'' +
+                '}';
+    }
 }

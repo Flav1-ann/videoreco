@@ -4,13 +4,14 @@ import org.hibernate.annotations.GenericGenerator;
 import org.hibernate.annotations.ManyToAny;
 
 import javax.persistence.*;
-import java.util.ArrayList;
-import java.util.HashSet;
-import java.util.List;
-import java.util.Set;
+import java.util.*;
 
 @Entity
 @Table(name = "video")
+@Inheritance(strategy = InheritanceType.SINGLE_TABLE)
+@DiscriminatorValue("video")
+@DiscriminatorColumn(name = "video_type",discriminatorType = DiscriminatorType.STRING
+        , columnDefinition = "varchar default 'video'")
 public class Video {
     @Id
     @GeneratedValue(strategy= GenerationType.AUTO,generator="native")
@@ -21,7 +22,7 @@ public class Video {
 
     private  String type;
 
-    @OneToMany
+    @ManyToMany
     Set<VideoLabel> videoLabels = new HashSet<VideoLabel>();
 
     @ManyToOne(cascade = CascadeType.ALL)
@@ -38,6 +39,8 @@ public class Video {
                 "id=" + id +
                 ", title='" + title + '\'' +
                 ", type='" + type + '\'' +
+                ", videoLabels=" + videoLabels +
+                ", user=" + user +
                 '}';
     }
 
@@ -94,5 +97,18 @@ public class Video {
 
     public void setUser(User user) {
         this.user = user;
+    }
+
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (o == null || getClass() != o.getClass()) return false;
+        Video video = (Video) o;
+        return id == video.id && Objects.equals(title, video.title) && Objects.equals(type, video.type) && Objects.equals(videoLabels, video.videoLabels) && Objects.equals(user, video.user);
+    }
+
+    @Override
+    public int hashCode() {
+        return Objects.hash(id, title, type, videoLabels, user);
     }
 }

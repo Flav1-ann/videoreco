@@ -1,6 +1,7 @@
 package fr.ensup.video;
 
 import fr.ensup.video.mapper.VideoMapper;
+import fr.ensup.video.model.User;
 import fr.ensup.video.model.Video;
 import fr.ensup.video.model.VideoLabel;
 import fr.ensup.video.repository.VideoJdbcTemplate;
@@ -39,25 +40,34 @@ public class VideoLauncher {
         tr.begin();
         //3- on instancie d'une vidéo avec des labels
         Video video =  new Video("naruto","anim");
+        Video video2 =  new Video("harry","film");
         VideoLabel videoLabel = new VideoLabel("Action");
         VideoLabel videoLabel1 = new VideoLabel("Palpitant");
         VideoLabel videoLabel2 = new VideoLabel("Horreur");
-//        video.getVideoLabels().add(videoLabel);
-//        video.getVideoLabels().add(videoLabel1);
-//        video.getVideoLabels().add(videoLabel2);
+        video.getVideoLabels().add(videoLabel);
+        video.getVideoLabels().add(videoLabel1);
+        video.getVideoLabels().add(videoLabel2);
         Set<VideoLabel> videoLabels = new HashSet<VideoLabel>();
         videoLabels.add(videoLabel);
         videoLabels.add(videoLabel1);
         videoLabels.add(videoLabel2);
         video.setVideoLabels(videoLabels);
-        //4- on persiste l'objets relationnel
+        Set<Video> videos= new HashSet<>();
+        videos.add(video);
+        videos.add(video2);
 
+
+        User user = new User("flavien","annaix","dev");
+        user.setVideos(videos);
+        //4- on persiste l'objets relationnel
+        em.persist(video2);
+        em.persist(user);
 //        em.persist(videoLabel);
 //        em.persist(videoLabel1);
 //        em.persist(videoLabel2);
 //        em.persist(video);
 
-        var videoFound = em.find(Video.class,1l);
+        var videoFound = em.find(Video.class,2l);
 //requete native
         String query = "Select * from video  WHERE title = 'naruto'";
         var videofound1 = em.createNativeQuery(query,Video.class);
