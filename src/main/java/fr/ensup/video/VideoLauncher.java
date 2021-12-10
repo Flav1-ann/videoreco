@@ -77,9 +77,9 @@ public class VideoLauncher {
         Film film = new Film(120l, new Timestamp(System.currentTimeMillis()));
         Series series = new Series(48,2);
 
-        em.persist(video);
-        em.persist(film);
-        em.persist(series);
+//        em.persist(video);
+//        em.persist(film);
+//        em.persist(series);
         //5- on commit
         tr.commit();
         //6- on ferme

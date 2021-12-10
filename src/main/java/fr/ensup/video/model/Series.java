@@ -1,7 +1,9 @@
 package fr.ensup.video.model;
 
 import javax.persistence.DiscriminatorValue;
+import javax.persistence.Entity;
 
+@Entity
 @DiscriminatorValue("serie")
 public class Series extends Video{
     private Integer nbEpisodes;
@@ -28,6 +30,10 @@ public class Series extends Video{
     public Series(Integer nbEpisodes, Integer nbSeasons) {
         this.nbEpisodes = nbEpisodes;
         this.nbSeasons = nbSeasons;
+    }
+
+    public Series() {
+
     }
 
     public Integer getNbEpisodes() {

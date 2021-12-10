@@ -8,9 +8,8 @@ import java.util.*;
 
 @Entity
 @Inheritance(strategy = InheritanceType.SINGLE_TABLE)
-@DiscriminatorValue("video")
-@DiscriminatorColumn(name = "video_type",discriminatorType = DiscriminatorType.STRING
-        , columnDefinition = "varchar default 'video'")
+@DiscriminatorValue("Video")
+@DiscriminatorColumn(name = "video_type")
 public class Video {
     @Id
     @GeneratedValue(strategy= GenerationType.AUTO,generator="native")

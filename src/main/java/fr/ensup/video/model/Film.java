@@ -5,40 +5,40 @@ import javax.persistence.Entity;
 import java.sql.Timestamp;
 import java.time.LocalDateTime;
 
+@Entity
 @DiscriminatorValue("film")
 public class Film extends Video{
 
     private Long duration;
-    private Timestamp release;
+    private Timestamp releaseDate;
 
 
-    public Film(String title, String type, Long duration, Long release) {
-
-    }
-
-    public Film(String title, String type, Long duration, Timestamp release) {
+    public Film(String title, String type, Long duration, Timestamp releaseDate) {
         super(title, type);
         this.duration = duration;
-        this.release = release;
+        this.releaseDate = releaseDate;
     }
 
-    public Film(long id, String title, String type, Long duration, Timestamp release) {
+    public Film(long id, String title, String type, Long duration, Timestamp releaseDate) {
         super(id, title, type);
         this.duration = duration;
-        this.release = release;
+        this.releaseDate = releaseDate;
     }
 
-    public Film(String title, String type, User user, Long duration, Timestamp release) {
+    public Film(String title, String type, User user, Long duration, Timestamp releaseDate) {
         super(title, type, user);
         this.duration = duration;
-        this.release = release;
+        this.releaseDate = releaseDate;
     }
 
-    public Film(Long duration, Timestamp release) {
+    public Film(Long duration, Timestamp releaseDate) {
         this.duration = duration;
-        this.release = release;
+        this.releaseDate = releaseDate;
     }
 
+    public Film() {
+
+    }
 
     public Long getDuration() {
         return duration;
@@ -48,11 +48,11 @@ public class Film extends Video{
         this.duration = duration;
     }
 
-    public Timestamp getRelease() {
-        return release;
+    public Timestamp getReleaseDate() {
+        return releaseDate;
     }
 
-    public void setRelease(Timestamp release) {
-        this.release = release;
+    public void setReleaseDate(Timestamp releaseDate) {
+        this.releaseDate = releaseDate;
     }
 }
