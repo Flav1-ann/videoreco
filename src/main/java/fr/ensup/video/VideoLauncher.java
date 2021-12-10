@@ -10,6 +10,9 @@ import javax.persistence.EntityManager;
 import javax.persistence.EntityManagerFactory;
 import javax.persistence.EntityTransaction;
 import javax.persistence.Persistence;
+import javax.persistence.criteria.CriteriaBuilder;
+import javax.persistence.criteria.CriteriaQuery;
+import javax.persistence.criteria.Root;
 import java.sql.Timestamp;
 import java.util.HashSet;
 import java.util.List;
@@ -73,13 +76,23 @@ public class VideoLauncher {
 //        System.out.println(videofound1.getResultList());
 
 
-        Video video = new Video("james","espionage");
-        Film film = new Film(120l, new Timestamp(System.currentTimeMillis()));
-        Series series = new Series(48,2);
+//        Video video = new Video("james","espionage");
+//        Film film = new Film(120l, new Timestamp(System.currentTimeMillis()));
+//        Series series = new Series(48,2);
+//
+//        em.persist(video);
+//        em.persist(film);
+//        em.persist(series);
+        CriteriaBuilder cb  = em.getCriteriaBuilder();
+        CriteriaQuery<Series> cQ = cb.createQuery(Series.class);
+        Root<Series> from = cQ.from(Series.class);
+        CriteriaQuery<Series> select = cQ.select(from);
 
-        em.persist(video);
-        em.persist(film);
-        em.persist(series);
+        var result = em.createQuery(select);
+        for (Series series:
+        result.getResultList()) {
+System.out.println(series);
+        }
         //5- on commit
         tr.commit();
         //6- on ferme
